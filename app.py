@@ -40,9 +40,10 @@ def data():
                 connection.close()
                 if result:
                     print(f"Current ampere reading: {result['ampere']} at {result['date']}")
+                    return jsonify(result)
                 else:
                     print("No data found")
-                return jsonify(result)
+                    return jsonify({"error": "No data found"})
             except Error as e:
                 print(f"Error while executing query: {e}")
                 return jsonify({"error": "Error executing query"})
