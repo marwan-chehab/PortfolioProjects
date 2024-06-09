@@ -13,8 +13,18 @@
                 url: "/data",
                 type: "GET",
                 success: function(data) {
-                    $("#ampere-value").text(data.ampere);
-                    $("#timestamp").text(data.date);
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        $("#ampere-value").text(data.ampere);
+                        $("#timestamp").text(data.date);
+                        if (data.ampere > 16000) {
+                            alert("Warning: Ampere value exceeds 16000!");
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error: " + status + " - " + error);
                 }
             });
         }
